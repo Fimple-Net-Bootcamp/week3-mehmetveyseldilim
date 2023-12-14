@@ -35,6 +35,23 @@ namespace VirtualPetCare.Data.Repositories
 
         }
 
+        public async Task<UserForRead> GetUserByIdAsync(int id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            if(user == null) 
+            {
+                throw new UserNotFound(id.ToString());
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var mappedUser = _mapper.Map<UserForRead>(user);
+            mappedUser.Roles = roles;
+
+            return mappedUser;
+        }
+
         public async Task<IdentityResult> RegisterUser(UserForRegistrationDto userForRegistration)
         {
             var user = _mapper.Map<User>(userForRegistration);
@@ -197,5 +214,7 @@ namespace VirtualPetCare.Data.Repositories
             _user = user;
             return await CreateToken(populateExp: false);
         }
+
+
     }
 }

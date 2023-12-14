@@ -29,7 +29,7 @@ namespace VirtualPetCare.API.Extensions
 
                     if(!environment.IsProduction()) 
                     {
-                        var repositoryManager = scope.ServiceProvider.GetRequiredService<IRepositoryManager>();
+                        // var repositoryManager = scope.ServiceProvider.GetRequiredService<IRepositoryManager>();
 
                         context.SeedDatabase<CustomIdentityRole>("Roles.json");
 

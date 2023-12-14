@@ -14,6 +14,7 @@ namespace VirtualPetCare.Data.Profiles
         {
             //. source -> destination
             CreateMap<UserForRegistrationDto, User>();
+            CreateMap<User, UserForRead>();
 
         }
     }

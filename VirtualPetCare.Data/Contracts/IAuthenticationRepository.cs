@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using VirtualPetCare.Data.DTOs;
+using VirtualPetCare.Data.Entities;
 
 namespace VirtualPetCare.Data.Contracts
 {
@@ -15,5 +16,7 @@ namespace VirtualPetCare.Data.Contracts
             Task<TokenDto> CreateToken(bool populateExp);
 
             Task<TokenDto> RefreshToken(TokenDto tokenDto);
+
+            Task<UserForRead> GetUserByIdAsync(int id);
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VirtualPetCare.API.ActionFilters;
 using VirtualPetCare.Data.Contracts;
@@ -10,7 +11,7 @@ using VirtualPetCare.Data.DTOs;
 namespace VirtualPetCare.API.Controllers
 {
     [ApiController]
-    [Route("api/authentication")]
+    [Route("api/kullanicilar")]
     public class AuthenticationController : ControllerBase
     {
 
@@ -19,6 +20,15 @@ namespace VirtualPetCare.API.Controllers
         public AuthenticationController(IRepositoryManager repository)
         {
             _repository = repository;
+        }
+
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> GetUserById(int id) 
+        {
+            var user = await _repository.AuthenticationRepository.GetUserByIdAsync(id);
+
+            return Ok(user);
         }
 
         [HttpPost]
