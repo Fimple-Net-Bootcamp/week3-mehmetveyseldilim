@@ -23,6 +23,11 @@ namespace VirtualPetCare.Data.Entities
 
         public HealthStatus HealthStatus{get; set;}
 
+        [Required]
+        public int PetTypeId {get; set;}
+
+        public PetType? PetType {get; set;}
+
 
     }
 
