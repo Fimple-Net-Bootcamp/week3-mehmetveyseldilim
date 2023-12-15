@@ -31,11 +31,12 @@ namespace VirtualPetCare.Data.Repositories
         RoleManager<CustomIdentityRole> roleManager, IOptionsMonitor<JwtConfiguration> configuration )
         {
             _authenticationRepository = new Lazy<IAuthenticationRepository>(() => new AuthenticationRepository(mapper, userManager, configuration, roleManager));
-             _activityRepository = new Lazy<IActivityRepository>(() => new ActivityRepository(mapper, context));
+             _typeRepository = new Lazy<ITypeRepository>(() => new TypeRepository(mapper, context));
              _foodRepository = new Lazy<IFoodRepository>(() => new FoodRepository(mapper, context));
              _healthRepository = new Lazy<IHealthRepository>(() => new HealthRepository(mapper, context));
              _petRepository = new Lazy<IPetRepository>(() => new PetRepository(mapper, context));
-             _typeRepository = new Lazy<ITypeRepository>(() => new TypeRepository(mapper, context));
+            _activityRepository = new Lazy<IActivityRepository>(() => new ActivityRepository(mapper, context, TypeRepository));
+
 
         }
 

@@ -20,9 +20,19 @@ namespace VirtualPetCare.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateActivity(CreateActivityDTO createActivityDTO) 
+        public async Task<ActionResult<ReadActivityDTO>> CreateActivity(CreateActivityDTO createActivityDTO) 
         {
-            return Ok();
+            var addedAcivityReadDTO = await _repositoryManager.ActivityRepository.CreateActivityAsync(createActivityDTO);
+
+            return Ok(addedAcivityReadDTO);
+        }
+
+        [HttpGet("{petId}")]
+        public async Task<ActionResult<IEnumerable<ReadActivityDTO>>> GetActivitiesForPet(int petId) 
+        {
+            var readActivityDTOList = await _repositoryManager.ActivityRepository.GetActivitiesForSpesificPetAsync(petId);
+
+            return Ok(readActivityDTOList);
         }
     }
 }

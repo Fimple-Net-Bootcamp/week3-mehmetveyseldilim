@@ -10,6 +10,6 @@ namespace VirtualPetCare.Data.Contracts
     {
         Task<ReadActivityDTO> CreateActivityAsync(CreateActivityDTO createActivityDTO);
 
-        Task<IEnumerator<ReadActivityDTO>> GetActivitiesForSpesificPetAsync(int petId);
+        Task<IEnumerable<ReadActivityDTO>> GetActivitiesForSpesificPetAsync(int petId);
     }
 }

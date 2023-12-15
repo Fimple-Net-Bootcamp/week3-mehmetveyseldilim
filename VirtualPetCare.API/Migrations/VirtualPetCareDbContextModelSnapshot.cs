@@ -269,12 +269,14 @@ namespace VirtualPetCare.API.Migrations
             modelBuilder.Entity("VirtualPetCare.Data.Entities.PetTypeActivity", b =>
                 {
                     b.Property<int>("ActivityId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnOrder(0);
 
                     b.Property<int>("PetTypeId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnOrder(1);
 
-                    b.HasIndex("ActivityId");
+                    b.HasKey("ActivityId", "PetTypeId");
 
                     b.HasIndex("PetTypeId");
 
@@ -284,12 +286,14 @@ namespace VirtualPetCare.API.Migrations
             modelBuilder.Entity("VirtualPetCare.Data.Entities.PetTypeFood", b =>
                 {
                     b.Property<int>("FoodId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnOrder(0);
 
                     b.Property<int>("PetTypeId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnOrder(1);
 
-                    b.HasIndex("FoodId");
+                    b.HasKey("FoodId", "PetTypeId");
 
                     b.HasIndex("PetTypeId");
 

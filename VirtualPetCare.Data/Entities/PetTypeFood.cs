@@ -1,18 +1,20 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace VirtualPetCare.Data.Entities
 {
-    [Keyless]
     public class PetTypeFood
-    {
-        [ForeignKey($"{nameof(FoodId)}")]
+    {   
+        [Column(Order = 0)]
         public int FoodId {get; set;}
 
-        [ForeignKey($"{nameof(PetTypeId)}")]
+        public Food? Food {get; set;}
+
+        
+        [Column(Order = 1)]
         public int PetTypeId {get; set;}
         public PetType? PetType {get; set;}
 
-        public Food? Food {get; set;}
     }
 }

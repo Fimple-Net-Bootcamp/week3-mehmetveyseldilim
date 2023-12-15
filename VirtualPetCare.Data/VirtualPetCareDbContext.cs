@@ -31,6 +31,11 @@ namespace VirtualPetCare.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {   
+            modelBuilder.Entity<PetTypeActivity>()
+                .HasKey(pta => new { pta.ActivityId, pta.PetTypeId });
+
+            modelBuilder.Entity<PetTypeFood>()
+                .HasKey(pta => new { pta.FoodId, pta.PetTypeId });
             
             modelBuilder.HasDefaultSchema(SCHEMA_NAME);
 

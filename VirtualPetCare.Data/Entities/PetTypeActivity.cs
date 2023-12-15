@@ -1,15 +1,16 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace VirtualPetCare.Data.Entities
 {
-    [Keyless]
     public class PetTypeActivity
     {
-        [ForeignKey($"{nameof(ActivityId)}")]
-        public int ActivityId {get; set;}
+        [Column(Order = 0)]
 
-        [ForeignKey($"{nameof(PetTypeId)}")]
+        public int ActivityId {get; set;}
+        [Column(Order = 1)]
+
         public int PetTypeId {get; set;}
 
         public PetType? PetType {get; set;}

@@ -262,6 +262,7 @@ namespace VirtualPetCare.API.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_PetTypeActivities", x => new { x.ActivityId, x.PetTypeId });
                     table.ForeignKey(
                         name: "FK_PetTypeActivities_Activities_ActivityId",
                         column: x => x.ActivityId,
@@ -288,6 +289,7 @@ namespace VirtualPetCare.API.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_PetTypeFoods", x => new { x.FoodId, x.PetTypeId });
                     table.ForeignKey(
                         name: "FK_PetTypeFoods_Foods_FoodId",
                         column: x => x.FoodId,
@@ -392,22 +394,10 @@ namespace VirtualPetCare.API.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PetTypeActivities_ActivityId",
-                schema: "VirtualPetCareSchema",
-                table: "PetTypeActivities",
-                column: "ActivityId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PetTypeActivities_PetTypeId",
                 schema: "VirtualPetCareSchema",
                 table: "PetTypeActivities",
                 column: "PetTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PetTypeFoods_FoodId",
-                schema: "VirtualPetCareSchema",
-                table: "PetTypeFoods",
-                column: "FoodId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PetTypeFoods_PetTypeId",
