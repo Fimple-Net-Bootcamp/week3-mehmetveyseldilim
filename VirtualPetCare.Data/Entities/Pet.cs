@@ -18,7 +18,7 @@ namespace VirtualPetCare.Data.Entities
         public User? User {get; set;}
 
         [Required]
-        [Column(TypeName = "nvarchar(24)")]
+        [Column(TypeName = "varchar(24)")]
         [EnumDataType(typeof(HealthStatus))]
 
         public HealthStatus HealthStatus{get; set;}

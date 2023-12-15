@@ -12,7 +12,7 @@ using VirtualPetCare.Data;
 namespace VirtualPetCare.API.Migrations
 {
     [DbContext(typeof(VirtualPetCareDbContext))]
-    [Migration("20231214114103_InitialMigration")]
+    [Migration("20231215115633_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace VirtualPetCare.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("Virtual")
+                .HasDefaultSchema("VirtualPetCareSchema")
                 .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -47,7 +47,7 @@ namespace VirtualPetCare.API.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", "Virtual");
+                    b.ToTable("AspNetRoleClaims", "VirtualPetCareSchema");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
@@ -71,7 +71,7 @@ namespace VirtualPetCare.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", "Virtual");
+                    b.ToTable("AspNetUserClaims", "VirtualPetCareSchema");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
@@ -92,7 +92,7 @@ namespace VirtualPetCare.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", "Virtual");
+                    b.ToTable("AspNetUserLogins", "VirtualPetCareSchema");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
@@ -107,7 +107,7 @@ namespace VirtualPetCare.API.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", "Virtual");
+                    b.ToTable("AspNetUserRoles", "VirtualPetCareSchema");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -126,7 +126,24 @@ namespace VirtualPetCare.API.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", "Virtual");
+                    b.ToTable("AspNetUserTokens", "VirtualPetCareSchema");
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.Activity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ActivityName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Activities", "VirtualPetCareSchema");
                 });
 
             modelBuilder.Entity("VirtualPetCare.Data.Entities.CustomIdentityRole", b =>
@@ -155,7 +172,106 @@ namespace VirtualPetCare.API.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles", "Virtual");
+                    b.ToTable("AspNetRoles", "VirtualPetCareSchema");
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.Food", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FoodName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Foods", "VirtualPetCareSchema");
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.Pet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("HealthStatus")
+                        .IsRequired()
+                        .HasColumnType("varchar(24)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("PetTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PetTypeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Pets", "VirtualPetCareSchema");
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.PetType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ThePetType")
+                        .IsRequired()
+                        .HasColumnType("varchar(24)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PetTypes", "VirtualPetCareSchema");
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.PetTypeActivity", b =>
+                {
+                    b.Property<int>("ActivityId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PetTypeId")
+                        .HasColumnType("integer");
+
+                    b.HasIndex("ActivityId");
+
+                    b.HasIndex("PetTypeId");
+
+                    b.ToTable("PetTypeActivities", "VirtualPetCareSchema");
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.PetTypeFood", b =>
+                {
+                    b.Property<int>("FoodId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PetTypeId")
+                        .HasColumnType("integer");
+
+                    b.HasIndex("FoodId");
+
+                    b.HasIndex("PetTypeId");
+
+                    b.ToTable("PetTypeFoods", "VirtualPetCareSchema");
                 });
 
             modelBuilder.Entity("VirtualPetCare.Data.Entities.User", b =>
@@ -236,7 +352,7 @@ namespace VirtualPetCare.API.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers", "Virtual");
+                    b.ToTable("AspNetUsers", "VirtualPetCareSchema");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -288,6 +404,73 @@ namespace VirtualPetCare.API.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.Pet", b =>
+                {
+                    b.HasOne("VirtualPetCare.Data.Entities.PetType", "PetType")
+                        .WithMany("Pets")
+                        .HasForeignKey("PetTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VirtualPetCare.Data.Entities.User", "User")
+                        .WithMany("Pets")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PetType");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.PetTypeActivity", b =>
+                {
+                    b.HasOne("VirtualPetCare.Data.Entities.Activity", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VirtualPetCare.Data.Entities.PetType", "PetType")
+                        .WithMany()
+                        .HasForeignKey("PetTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Activity");
+
+                    b.Navigation("PetType");
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.PetTypeFood", b =>
+                {
+                    b.HasOne("VirtualPetCare.Data.Entities.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VirtualPetCare.Data.Entities.PetType", "PetType")
+                        .WithMany()
+                        .HasForeignKey("PetTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Food");
+
+                    b.Navigation("PetType");
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.PetType", b =>
+                {
+                    b.Navigation("Pets");
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.User", b =>
+                {
+                    b.Navigation("Pets");
                 });
 #pragma warning restore 612, 618
         }

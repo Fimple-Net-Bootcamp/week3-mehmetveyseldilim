@@ -9,7 +9,7 @@ namespace VirtualPetCare.Data.Entities
         public int Id { get; set; }
         [Required]
         [EnumDataType(typeof(PetTypeEnum))]
-        [Column(TypeName = "nvarchar(24)")]
+        [Column(TypeName = "varchar(24)")]
         
         public PetTypeEnum ThePetType {get; set;}
 

@@ -2,7 +2,7 @@ version: '3.5'
 services:
   virtualpetcare-postgres:
     container_name: virtualpetcare-postgres-container
-    image: postgres
+    image: postgres:latest
     ports:
       - "6432:5432"
     environment:
@@ -15,7 +15,7 @@ services:
     
   virtualpetcare-pgadmin:
     container_name: virtualpetcare-container-pgadmin
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     depends_on:
       - virtualpetcare-postgres
     ports:

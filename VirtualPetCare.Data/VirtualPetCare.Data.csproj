@@ -21,13 +21,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
 
-    <None Update="Data\Users.json">
+    <None Update="Data\PetTypes.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
 
-    <None Update="Data\UserRoles.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 

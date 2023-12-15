@@ -7,7 +7,7 @@ namespace VirtualPetCare.Data
     
     public class VirtualPetCareDbContext : IdentityDbContext<User, CustomIdentityRole, int>
     {
-        public const string SCHEMA_NAME = "Virtual";
+        public const string SCHEMA_NAME = "VirtualPetCareSchema";
 
         public DbSet<Pet> Pets {get; set;}
 
@@ -15,7 +15,11 @@ namespace VirtualPetCare.Data
 
         public DbSet<Food> Foods {get; set;}
 
-        public DbSet<Type> Types {get; set;}
+        public DbSet<PetType> PetTypes {get; set;}
+
+        public DbSet<PetTypeActivity> PetTypeActivities {get; set;}
+
+        public DbSet<PetTypeFood> PetTypeFoods {get; set;}
 
 
         public VirtualPetCareDbContext(DbContextOptions<VirtualPetCareDbContext> dbContextOptions) : base(dbContextOptions)

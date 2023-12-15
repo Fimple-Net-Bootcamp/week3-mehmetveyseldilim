@@ -1,0 +1,26 @@
+[
+    {
+        "Id" : 1,
+        "ThePetType" : 0
+    },
+
+    {
+        "Id" : 2,
+        "ThePetType" : 1
+    },
+
+    {
+        "Id" : 3,
+        "ThePetType" : 2
+    },
+
+    {
+        "Id" : 4,
+        "ThePetType" : 3
+    }
+
+]
+
+
+
+

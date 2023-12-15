@@ -38,6 +38,8 @@ namespace VirtualPetCare.API.Extensions
 
                     }
 
+                    context.SeedDatabase<PetType>("PetTypes.json");
+
                     context.SaveChanges();
 
                 }
