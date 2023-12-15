@@ -12,5 +12,8 @@ namespace VirtualPetCare.Data.Entities
         public required string LastName { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime RefreshTokenExpiryTime { get; set; }
+
+        //. Navigation Properties
+        public ICollection<Pet>? Pets {get; set;}
     }
 }
