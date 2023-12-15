@@ -27,10 +27,10 @@ namespace VirtualPetCare.API.Controllers
             return Ok(readFoodDTOs);
         }
 
-        [HttpPost("{petId}")]
-        public async Task<IActionResult> FeedThePet(int petId) 
+        [HttpPost("{petId}/{foodId}")]
+        public async Task<IActionResult> FeedThePet(int petId, int foodId) 
         {
-            var boole = await _repositoryManager.FoodRepository.FeedThePet(petId);
+            var boole = await _repositoryManager.FoodRepository.FeedThePet(petId, foodId);
 
             if(!boole) return BadRequest();
 

@@ -9,11 +9,11 @@ namespace VirtualPetCare.Data.Entities
         [Column(Order = 0)]
         public int FoodId {get; set;}
 
-        public Food? Food {get; set;}
-
-        
         [Column(Order = 1)]
         public int PetTypeId {get; set;}
+
+        public Food? Food {get; set;}
+
         public PetType? PetType {get; set;}
 
     }

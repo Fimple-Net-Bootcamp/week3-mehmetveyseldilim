@@ -17,6 +17,7 @@ namespace VirtualPetCare.Data.Profiles
             CreateMap<User, UserForRead>();
 
             CreateMap<ReadActivityDTO, Activity>();
+            CreateMap<ReadFoodDTO, Food>();
 
         }
     }

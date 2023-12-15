@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VirtualPetCare.Data.Contracts;
 using VirtualPetCare.Data.DTOs;
+using VirtualPetCare.Data.Entities;
+using VirtualPetCare.Data.Exceptions;
 
 namespace VirtualPetCare.Data.Repositories
 {
@@ -21,14 +24,63 @@ namespace VirtualPetCare.Data.Repositories
         }
 
 
-        public Task<bool> FeedThePet(int id)
+        public async Task<bool> FeedThePet(int id, int foodId)
         {
-            throw new NotImplementedException();
+            var pet = await GetPetById(id);
+
+            var food = await GetFoodById(foodId);
+
+            var feed = await FeedThePet(pet, food);
+
+            return feed;
         }
 
-        public Task<ReadFoodDTO> GetAllFoodsAsync()
+        public async Task<ReadFoodDTO> GetAllFoodsAsync()
         {
-            throw new NotImplementedException();
+            var foods = await _context.Foods.ToListAsync();
+
+            var mappedFoods = _mapper.Map<ReadFoodDTO>(foods);
+
+            return mappedFoods;
+        }
+
+        private async Task<Pet> GetPetById(int id) 
+        {
+            var pet = await _context.Pets.Where(pet => pet.Id == id).FirstOrDefaultAsync();
+
+            if(pet == null) 
+            {
+                throw new PetNotFound(id);
+            }
+
+            return pet;
+        }
+
+        private async Task<Food> GetFoodById(int id) 
+        {
+            var food = await _context.Foods.Where(food => food.Id == id).FirstOrDefaultAsync();
+
+            if(food == null) 
+            {
+                throw new FoodNotFound(id);
+            }
+
+            return food;
+        }
+
+
+
+        private async Task<bool> FeedThePet(Pet pet, Food food) 
+        {
+            int petTypeId = pet.PetTypeId;
+
+            var doesPetConsumeThisFood = await _context
+                                        .PetTypeFoods.
+                                        AnyAsync(petTypeFood => petTypeFood.PetTypeId == petTypeId);
+
+
+            return doesPetConsumeThisFood;
+
         }
     }
 }

@@ -10,6 +10,6 @@ namespace VirtualPetCare.Data.Contracts
     {
         Task<ReadFoodDTO> GetAllFoodsAsync();
 
-        Task<bool> FeedThePet(int id); 
+        Task<bool> FeedThePet(int id, int foodId); 
     }
 }

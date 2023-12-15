@@ -13,7 +13,7 @@ namespace VirtualPetCare.API.Extensions
 {
     public static class AppBuilderExtensions
     {
-        public static void Seed(this IApplicationBuilder applicationBuilder, IHostEnvironment environment) 
+        public static  async void Seed(this IApplicationBuilder applicationBuilder, IHostEnvironment environment) 
         {
             using (var scope = applicationBuilder.ApplicationServices.CreateScope()) 
             {
@@ -39,6 +39,10 @@ namespace VirtualPetCare.API.Extensions
                     }
 
                     context.SeedDatabase<PetType>("PetTypes.json");
+                    context.SeedDatabase<Food>("Foods.json");
+
+                    // await context.SaveChangesAsync();
+                    context.SeedDatabase<PetTypeFood>("PetTypeFoods.json");
 
                     context.SaveChanges();
 
