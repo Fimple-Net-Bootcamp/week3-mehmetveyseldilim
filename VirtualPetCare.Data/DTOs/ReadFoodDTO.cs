@@ -7,6 +7,7 @@ namespace VirtualPetCare.Data.DTOs
 {
     public class ReadFoodDTO
     {
-        
+        public int Id {get; set;}
+        public required string FoodName {get; set;}
     }
 }

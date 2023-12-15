@@ -73,10 +73,13 @@ namespace VirtualPetCare.Data.Repositories
         private async Task<bool> FeedThePet(Pet pet, Food food) 
         {
             int petTypeId = pet.PetTypeId;
+            int foodId = food.Id;
 
             var doesPetConsumeThisFood = await _context
                                         .PetTypeFoods.
-                                        AnyAsync(petTypeFood => petTypeFood.PetTypeId == petTypeId);
+                                        AnyAsync(petTypeFood => 
+                                        petTypeFood.PetTypeId == petTypeId 
+                                        && petTypeFood.FoodId == foodId);
 
 
             return doesPetConsumeThisFood;
