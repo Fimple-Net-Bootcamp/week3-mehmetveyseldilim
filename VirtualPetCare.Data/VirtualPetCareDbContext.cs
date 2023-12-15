@@ -21,6 +21,8 @@ namespace VirtualPetCare.Data
 
         public DbSet<PetTypeFood> PetTypeFoods {get; set;}
 
+        public DbSet<HealthRecord> HealthRecords {get; set;}
+
 
         public VirtualPetCareDbContext(DbContextOptions<VirtualPetCareDbContext> dbContextOptions) : base(dbContextOptions)
         {

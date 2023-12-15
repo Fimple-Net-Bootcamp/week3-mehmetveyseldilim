@@ -13,15 +13,14 @@ namespace VirtualPetCare.Data.Entities
         public required string Name { get; set; }
 
         [Required]
-        [ForeignKey($"{nameof(UserId)}")]
+        [ForeignKey($"{nameof(User)}")]
         public int UserId {get; set;}
         public User? User {get; set;}
 
-        [Required]
-        [Column(TypeName = "varchar(24)")]
-        [EnumDataType(typeof(HealthStatus))]
 
-        public HealthStatus HealthStatus{get; set;}
+        public HealthRecord? HealthRecord {get; set;}
+
+
 
         [Required]
         public int PetTypeId {get; set;}
@@ -31,10 +30,5 @@ namespace VirtualPetCare.Data.Entities
 
     }
 
-    public enum HealthStatus 
-    {
-        Unknown,
-        Good,
-        Bad
-    }
+
 }

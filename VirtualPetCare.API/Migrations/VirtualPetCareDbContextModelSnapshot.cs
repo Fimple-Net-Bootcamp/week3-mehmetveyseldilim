@@ -189,7 +189,7 @@ namespace VirtualPetCare.API.Migrations
                     b.ToTable("Foods", "VirtualPetCareSchema");
                 });
 
-            modelBuilder.Entity("VirtualPetCare.Data.Entities.Pet", b =>
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.HealthRecord", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -197,9 +197,34 @@ namespace VirtualPetCare.API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("HealthStatus")
+                    b.Property<string>("GeneralHealth")
                         .IsRequired()
                         .HasColumnType("varchar(24)");
+
+                    b.Property<DateTime?>("LastVaccinationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("PetId")
+                        .HasColumnType("integer");
+
+                    b.Property<double?>("Weight")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PetId")
+                        .IsUnique();
+
+                    b.ToTable("HealthRecords", "VirtualPetCareSchema");
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.Pet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -403,6 +428,17 @@ namespace VirtualPetCare.API.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.HealthRecord", b =>
+                {
+                    b.HasOne("VirtualPetCare.Data.Entities.Pet", "Pet")
+                        .WithOne("HealthRecord")
+                        .HasForeignKey("VirtualPetCare.Data.Entities.HealthRecord", "PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pet");
+                });
+
             modelBuilder.Entity("VirtualPetCare.Data.Entities.Pet", b =>
                 {
                     b.HasOne("VirtualPetCare.Data.Entities.PetType", "PetType")
@@ -458,6 +494,11 @@ namespace VirtualPetCare.API.Migrations
                     b.Navigation("Food");
 
                     b.Navigation("PetType");
+                });
+
+            modelBuilder.Entity("VirtualPetCare.Data.Entities.Pet", b =>
+                {
+                    b.Navigation("HealthRecord");
                 });
 
             modelBuilder.Entity("VirtualPetCare.Data.Entities.PetType", b =>

@@ -231,7 +231,6 @@ namespace VirtualPetCare.API.Migrations
                     Type = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false),
-                    HealthStatus = table.Column<string>(type: "varchar(24)", nullable: false),
                     PetTypeId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -305,6 +304,30 @@ namespace VirtualPetCare.API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "HealthRecords",
+                schema: "VirtualPetCareSchema",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    GeneralHealth = table.Column<string>(type: "varchar(24)", nullable: false),
+                    LastVaccinationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Weight = table.Column<double>(type: "double precision", nullable: true),
+                    PetId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HealthRecords", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HealthRecords_Pets_PetId",
+                        column: x => x.PetId,
+                        principalSchema: "VirtualPetCareSchema",
+                        principalTable: "Pets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 schema: "VirtualPetCareSchema",
@@ -347,6 +370,13 @@ namespace VirtualPetCare.API.Migrations
                 schema: "VirtualPetCareSchema",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HealthRecords_PetId",
+                schema: "VirtualPetCareSchema",
+                table: "HealthRecords",
+                column: "PetId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -410,7 +440,7 @@ namespace VirtualPetCare.API.Migrations
                 schema: "VirtualPetCareSchema");
 
             migrationBuilder.DropTable(
-                name: "Pets",
+                name: "HealthRecords",
                 schema: "VirtualPetCareSchema");
 
             migrationBuilder.DropTable(
@@ -426,7 +456,7 @@ namespace VirtualPetCare.API.Migrations
                 schema: "VirtualPetCareSchema");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers",
+                name: "Pets",
                 schema: "VirtualPetCareSchema");
 
             migrationBuilder.DropTable(
@@ -435,6 +465,10 @@ namespace VirtualPetCare.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Foods",
+                schema: "VirtualPetCareSchema");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers",
                 schema: "VirtualPetCareSchema");
 
             migrationBuilder.DropTable(

@@ -8,16 +8,14 @@ using VirtualPetCare.Data.Contracts;
 namespace VirtualPetCare.API.Controllers
 {
     [ApiController]
-    [Route("api/pets")]
-    public class PetsController : ControllerBase
+    [Route("api/foods")]
+    public class FoodsController : ControllerBase
     {
         private readonly IRepositoryManager _repositoryManager;
 
-        public PetsController(IRepositoryManager repositoryManager)
+        public FoodsController(IRepositoryManager repositoryManager)
         {
             _repositoryManager = repositoryManager;
         }
-
-        
     }
 }
